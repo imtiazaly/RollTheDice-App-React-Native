@@ -2,6 +2,7 @@ import { JSX, useState } from 'react';
 import {
   Image,
   ImageSourcePropType,
+  Pressable,
   StatusBar,
   StyleSheet,
   Text,
@@ -70,9 +71,9 @@ export default function App(): JSX.Element {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.container}>
         <Dice imageUrl={diceImage} />
-        <TouchableOpacity onPress={rollDice}>
+        <Pressable onPress={rollDice}>
           <Text style={styles.rollDiceBtnText}>Roll Dice</Text>
-        </TouchableOpacity>
+        </Pressable>
       </SafeAreaView>
     </>
   );
