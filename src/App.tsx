@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { PropsWithChildren } from 'react';
+import RNHapticFeedback from 'react-native-haptic-feedback';
 
 import DiceOne from '../assets/One.png';
 import DiceTwo from '../assets/Two.png';
@@ -60,6 +61,8 @@ export default function App(): JSX.Element {
         setDiceImage(DiceOne);
         break;
     }
+
+    RNHapticFeedback.trigger('impactHeavy');
   };
 
   return (
