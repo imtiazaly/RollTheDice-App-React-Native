@@ -6,7 +6,6 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -24,6 +23,8 @@ type DiceProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType;
 }>;
 
+
+
 const Dice = ({ imageUrl }: DiceProps): JSX.Element => {
   return (
     <View style={styles.diceContainer}>
@@ -34,6 +35,7 @@ const Dice = ({ imageUrl }: DiceProps): JSX.Element => {
 
 export default function App(): JSX.Element {
   const [diceImage, setDiceImage] = useState<ImageSourcePropType>(DiceOne);
+  const [btnBgColor, setbtnBgColor] = useState('#FFF2F2');
 
   const rollDice = (): void => {
     const randomNumber = Math.floor(Math.random() * 6) + 1;
@@ -41,21 +43,27 @@ export default function App(): JSX.Element {
     switch (randomNumber) {
       case 1:
         setDiceImage(DiceOne);
+        setbtnBgColor('#622584');
         break;
       case 2:
         setDiceImage(DiceTwo);
+        setbtnBgColor('#3852c0');
         break;
       case 3:
         setDiceImage(DiceThree);
+        setbtnBgColor('#29af6d');
         break;
       case 4:
         setDiceImage(DiceFour);
+        setbtnBgColor('#d50503');
         break;
       case 5:
         setDiceImage(DiceFive);
+        setbtnBgColor('#f9c7d4');
         break;
       case 6:
         setDiceImage(DiceSix);
+        setbtnBgColor('#eece17');
         break;
 
       default:
@@ -66,13 +74,29 @@ export default function App(): JSX.Element {
     RNHapticFeedback.trigger('impactHeavy');
   };
 
+  const genRandomColor = (): string => {
+    const hexRange = '0123456789ABCDEF';
+    let color = '#';
+
+    for (let i = 0; i < 6; i++) {
+      color += hexRange.charAt(Math.floor(Math.random() * hexRange.length));
+    }
+    return color;
+  };
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView
+        style={[styles.container, { backgroundColor: genRandomColor() }]}
+      >
         <Dice imageUrl={diceImage} />
         <Pressable onPress={rollDice}>
-          <Text style={styles.rollDiceBtnText}>Roll Dice</Text>
+          <Text
+            style={[styles.rollDiceBtnText, { backgroundColor: btnBgColor }]}
+          >
+            Roll Dice
+          </Text>
         </Pressable>
       </SafeAreaView>
     </>
@@ -100,7 +124,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: '#E5E0FF',
     fontSize: 16,
-    color: '#8EA7E9',
+    color: '#ffffff',
     fontWeight: '700',
     textTransform: 'uppercase',
   },
